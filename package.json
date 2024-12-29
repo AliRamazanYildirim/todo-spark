@@ -1,0 +1,16 @@
+{
+  "name": "todo-spark",
+  "module": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "scripts": {
+    "build": "if-env TYPE=server && (cd server && bun install) || (cd client && bun install)",
+    "server": "node ./server/server.js",
+    "client": "cd client && bun start"
+  },
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
+}
