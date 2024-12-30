@@ -1,19 +1,31 @@
+import { useState } from "react";
 import ProgressBar from "./ProgressBar";
 import TickIcon from "./TickIcon";
+import Modal from "./Modal";
 
-const ListItem = ({task}) => {
-    return<li className="list-item">
-        <div className="info-container">
+const ListItem = ({ task, getData }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return<li className="list-item">
+      <div className="info-container">
         <TickIcon />
         <p className="task-title">{task.title}</p>
         <ProgressBar />
-        </div>
+      </div>
 
-        <div className="btn-group">
-            <button className="edit">Edit</button>
-            <button className="delete">Delete</button>
-        </div>
+      <div className="btn-group">
+        <button
+          className="edit"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          Edit
+        </button>
+        <button className="delete">Delete</button>
+      </div>
+      {showModal && <Modal mode={"edit"} setShowModal={setShowModal} task={task} getData={getData} />}
     </li>
-}
+};
 
 export default ListItem;

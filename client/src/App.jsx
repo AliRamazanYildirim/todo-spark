@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import "./App.css";
+import { useEffect, useState } from "react";
 import ListHeader from "./components/ListHeader";
-import { useState } from "react";
 import ListItem from "./components/ListItem";
 
 const App = () => {
@@ -27,9 +26,9 @@ const App = () => {
 
   return (
     <div className="app">
-      <ListHeader listName={"ToDo Spark"} />
+      <ListHeader listName={"ToDo Spark"}  getData={getData}/>
       {sortedTask?.map((task) => (
-        <ListItem key={task.id} task={task} />
+        <ListItem key={task.id} task={task} getData={getData}/>
       ))}
     </div>
   );
