@@ -2,8 +2,8 @@ body{
   margin: 0;
   padding: 0;
   background-color: #1a1a1a;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-content: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .app{
@@ -20,23 +20,31 @@ body{
   place-content: center;
 }
 
-.btn-add:hover{
+.create:hover{
   background-color: #5c8001;
 }
 
-.btn-add:active{
+.create:active{
   color: #f9f9f9;
   background-color: #5c8001;
 }
 
-.btn-sign-out:hover{
+.sign-out:hover{
   background-color: #f26419;
 }
 
-.btn-sign-out:active{
+.sign-out:active{
   color: #f9f9f9;
   background-color: #f26419;
 }
+
+input{
+  margin: 11px 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+}
+
 
 .edit:hover{
   background-color: rgb(141, 181, 145);
@@ -44,7 +52,7 @@ body{
 
 .edit:active{
   color: #f9f9f9;
-  background-color: rgb(141, 181, 145)
+  background-color: rgb(141, 181, 145);
 }
 
 .delete:hover{
@@ -87,12 +95,58 @@ padding-bottom: 5px;
   justify-content: space-between;
 }
 
-.tick{
-    
-}
-
 .task-title{
   margin-top: 33px;
+}
+
+/* Modal */
+
+.overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.05);
+  place-content: center;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+}
+
+.modal .form-title-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal .form-title-container button{
+  border: none;
+  height: 40px;
+  background-color:  #a4133c;
+}
+
+.modal .form-title-container button:active{
+  height: 40px;
+  color: #f9f9f9;
+  background-color:  #a4133c;
+}
+
+.modal form{
+  display: flex;
+  flex-direction: column;
+}
+
+.modal label{
+  font-size: 13px;
 }
 
 button {
