@@ -1,13 +1,38 @@
-import './App.css'
-import ListHeader from './components/ListHeader'
+import { useEffect } from "react";
+import "./App.css";
+import ListHeader from "./components/ListHeader";
+import { useState } from "react";
+import ListItem from "./components/ListItem";
 
-function App() {
+const App = () => {
+  const userEmail = "ali@test.com";
+  const [tasks, setTasks] = useState(null);
+
+  const getData = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/todos/${userEmail}`);
+      const json = await response.json();
+      setTasks(json);
+    } catch (error) {
+      console.error();
+    }
+  };
+
+  useEffect(() => getData, []);
+  console.log(tasks);
+
+  //!Sort by date
+
+  const sortedTask = tasks?.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
-    <div className='app'>
-     <ListHeader listName={'Hallo Welt'}/>
+    <div className="app">
+      <ListHeader listName={"ToDo Spark"} />
+      {sortedTask?.map((task) => (
+        <ListItem key={task.id} task={task} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

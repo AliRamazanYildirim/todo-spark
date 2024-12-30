@@ -20,11 +20,52 @@ body{
   place-content: center;
 }
 
+.btn-add:hover{
+  background-color: #5c8001;
+}
+
+.btn-add:active{
+  color: #f9f9f9;
+  background-color: #5c8001;
+}
+
+.btn-sign-out:hover{
+  background-color: #f26419;
+}
+
+.btn-sign-out:active{
+  color: #f9f9f9;
+  background-color: #f26419;
+}
+
+.edit:hover{
+  background-color: rgb(141, 181, 145);
+}
+
+.edit:active{
+  color: #f9f9f9;
+  background-color: rgb(141, 181, 145)
+}
+
+.delete:hover{
+  background-color: #ff4d6d;
+}
+
+.delete:active{
+  color: #f9f9f9;
+  background-color: #a4133c;
+}
+
+.info-container{
+  display: flex;
+}
+
 .btn-group button{
   margin: 0 5px;
   padding: 5px 10px;
   border-radius: 10px;
   background-color: transparent;
+  border-color: rgb(141, 181, 145);
 }
 /* List header */
 
@@ -32,7 +73,28 @@ body{
 width: 100%;
 place-content: center;
 border-bottom: rgba(0, 0, 0, 0.05) 3px solid;
+padding-bottom: 5px;
 }
+
+/* List Item */
+
+.list-item{
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 0 0 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tick{
+    
+}
+
+.task-title{
+  margin-top: 33px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -52,15 +114,3 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
