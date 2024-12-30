@@ -1,11 +1,12 @@
 import './App.css'
+import ListHeader from './components/ListHeader'
 
 function App() {
 
   return (
-    <>
-     Ali Ramazan
-    </>
+    <div className='app'>
+     <ListHeader listName={'Hallo Welt'}/>
+    </div>
   )
 }
 
