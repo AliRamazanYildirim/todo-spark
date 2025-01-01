@@ -1,3 +1,15 @@
 {
-  "commentTranslate.source": "Bing"
+  "commentTranslate.source": "Bing",
+  "background.backgroundSize": ["Manual", "Cover", "Cover", "Cover"],
+  "background.editorBackgrounds": [
+    "https://www.besiktasesports.com/wp-content/uploads/2021/08/taraftar-19810457255e41950fb76d4-scaled.jpg"
+  ],
+  "background.backgroundRepeat": [
+    "Repeat Round",
+    "No Repeat",
+    "No Repeat",
+    "No Repeat"
+  ],
+  "background.backgroundSizeValue": ["50%", "100%", "100%", "100%"],
+  "background.windowBackgrounds": []
 }
