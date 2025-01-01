@@ -9,7 +9,7 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/todos/${userEmail}`);
+      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos/${userEmail}`);
       const json = await response.json();
       setTasks(json);
     } catch (error) {
