@@ -11,5 +11,8 @@
     "No Repeat"
   ],
   "background.backgroundSizeValue": ["50%", "100%", "100%", "100%"],
-  "background.windowBackgrounds": []
+  "background.windowBackgrounds": [],
+  "background.panelBackgrounds": [
+    "/home/dci-student/Bilder/Hintergründe/taraftar-4787841375e419c44944ef.jpg"
+  ]
 }
