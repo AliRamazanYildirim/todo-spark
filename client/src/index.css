@@ -150,10 +150,44 @@ padding-bottom: 5px;
   font-size: 13px;
 }
 
+/* Auth */
+
+.auth-container{
+  place-content: center;
+  margin: 50px;
+}
+
+.auth-container-box{
+  margin: 0 auto;
+  width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+}
+
+.auth-container-box form{
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  padding: 20px;
+}
+
+.auth-options{
+  display: flex;
+}
+
+.auth-options button{
+  width: 50%;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: transparent;
+  border-color: rgb(141, 181, 145);
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 10px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -161,6 +195,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }

@@ -2,6 +2,8 @@ import express from "express";
 import pool from "./db.js";
 import cors from "cors";
 import { nanoid } from "nanoid";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const PORT = process.env.PORT ?? 8000;
 const app = express();
@@ -73,5 +75,28 @@ app.delete('/todos/:id' , async (req, res) => {
   
  }
 })
+
+//Signup
+
+app.post('/signup', async (req, res) => {
+  const {email, password} = req.body;
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
+  console.log(email, password);
+  try {
+    const signUp = await pool.query(`INSERT INTO users(email, hashed_password) VALUES(
+    $1, $2)`, [email, hashedPassword])
+    const token = jwt.sign({email}, 'secret', {
+      expiresIn: '1d'
+    });
+    res.json({email, token});
+  } catch (error) {
+    console.error(error);
+    if(error) {
+       res.json({detail: error.detail});
+    }
+  }
+});
 
 app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
