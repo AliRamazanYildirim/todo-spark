@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 const Auth = () => {
-  const [error, setError] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-
+    const [error, setError] = useState(null);
+    const [isLogin, setIsLogin] = useState(false);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [cookies, setCookie, removeCookie] = useCookies(null);
+    
   console.log(email, password, confirmPassword);
+  console.log('Cookies:', cookies);
   
 
   const viewLogin = (status) => {
@@ -17,38 +20,50 @@ const Auth = () => {
 
   const handleSubmit = async (e, endpoint) => {
     e.preventDefault();
-    !isLogin && password !== confirmPassword
-      ? setError("Passwords do not match")
-      : setError(null);
     
-      try {
-      const response = await fetch(
-        `${import.meta.env.VITE_APP_SERVER_URL}/${endpoint}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+    if (!isLogin && password !== confirmPassword) {
+        setError("Passwords do not match");
+        return; // Stop execution if passwords don't match
+    } else {
+        setError(null);
+    }
+
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_APP_SERVER_URL}/${endpoint}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json(); 
+            throw new Error(errorData.message || "Failed to fetch data");
         }
-      );
 
-      if (!response.ok) {
-        const errorData = await response.json(); 
-        throw new Error(errorData.message || "Failed to fetch data");
-    }
+        const data = await response.json();
+        console.log(data);
 
-      const data = await response.json();
-      console.log(data);
-      
+        // Save cookies and reload only if successful
+        setCookie('Email', data.email);
+        setCookie('Token', data.token);
+        window.location.reload();
     } catch (error) {
-      console.error("Error:", error);
-      setError(data.detail);
+        // Ensure error handling logic is correct
+        if (error.response && error.response.data && error.response.data.detail) {
+            setError(error.response.data.detail);
+        } else {
+            setError(error.message);
+        }
     }
-  };
+};
 
   return (
     <div className="auth-container">
