@@ -99,4 +99,31 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+//Login
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    if (!user.rows.length) {
+      res.json({ detail: 'User not found' });
+      return; // Anstelle eines Fehlers zu werfen, ist es besser, return zu verwenden.
+    }
+
+    const success = await bcrypt.compare(password, user.rows[0].hashed_password);
+    if (success) {
+      const token = jwt.sign({ email }, 'secret', {
+        expiresIn: '1d'
+      });
+      res.json({ email: user.rows[0].email, token });
+    } else {
+      res.json({ detail: 'Login failed' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.json({ detail: error.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));

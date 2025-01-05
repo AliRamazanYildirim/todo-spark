@@ -7,7 +7,7 @@ import ListItem from "./components/ListItem";
 import Auth from "./components/Auth";
 
 const App = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [cookies, , ] = useCookies(null);
   const [tasks, setTasks] = useState(null);
   const userEmail = cookies.Email;
   const authToken = cookies.Token;

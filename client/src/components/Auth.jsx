@@ -7,7 +7,7 @@ const Auth = () => {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
-    const [cookies, setCookie, removeCookie] = useCookies(null);
+    const [cookies, setCookie, ] = useCookies(null);
     
   console.log(email, password, confirmPassword);
   console.log('Cookies:', cookies);
@@ -23,7 +23,7 @@ const Auth = () => {
     
     if (!isLogin && password !== confirmPassword) {
         setError("Passwords do not match");
-        return; // Stop execution if passwords don't match
+        return; // Beenden die Ausführung, wenn die Passwörter nicht übereinstimmen.
     } else {
         setError(null);
     }
@@ -51,12 +51,12 @@ const Auth = () => {
         const data = await response.json();
         console.log(data);
 
-        // Save cookies and reload only if successful
+        //! Speichern Cookies und laden nur neu, wenn erfolgreich
         setCookie('Email', data.email);
         setCookie('Token', data.token);
         window.location.reload();
     } catch (error) {
-        // Ensure error handling logic is correct
+        //! Stellen sicher, dass die Fehlerbehandlungslogik korrekt ist
         if (error.response && error.response.data && error.response.data.detail) {
             setError(error.response.data.detail);
         } else {
