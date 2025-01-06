@@ -1,19 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Rubik+Vinyl&display=swap');
+
 body{
   margin: 0;
   padding: 0;
-  background-color: #1a1a1a;
-  display: grid;
+  background-color: #123335;
+  display: grid; 
   place-content: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 .app{
-  background-color: #f9f9f9;
+  background-color: #e7ecef;
   box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px, rgba(0, 0, 0, 0.08) 0 0 0 1px;
   border-radius: 5px;
   padding: 10px;
   width: 800px;
-  height: 80vh;
+  min-height: 30vh;
   margin-top: 50px;
+}
+
+.list-header {
+  place-content: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-header-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Rubik Vinyl', cursive; /* Eklediğiniz fontu burada kullanın */
 }
 
 .btn-group{
@@ -44,7 +59,6 @@ input{
   border-radius: 10px;
   border: 1.5px solid rgba(0, 0, 0, 0.5);
 }
-
 
 .edit:hover{
   background-color: rgb(141, 181, 145);
@@ -97,7 +111,7 @@ padding-bottom: 5px;
 
 .task-title{
   margin-top: 33px;
-  margin-left: 10px;
+  width: 300px;
 }
 
 /* Modal */
@@ -197,6 +211,21 @@ padding-bottom: 5px;
   border-radius: 10px;
 }
 
+.progress-bar{
+  width: 200px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin: 10px 0;
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.inner-bar{
+  height: 20px;
+  background-color: #a4133c;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -212,6 +241,7 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
