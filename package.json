@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "if-env TYPE=server && (cd server && bun install) || (cd client && bun install)",
-    "server": "node ./server/server.js",
+    "server": "bun ./server/server.js",
     "client": "cd client && bun start"
   },
   "dependencies": {

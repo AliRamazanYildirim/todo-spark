@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "start": "nodemon server.js",
-    "dev": "bun dev server.js",
-    "build": "bun run js",
-    "test": "bun test",
-    "eject": "react-scripts eject"
+    "dev": "bun run server",
+    "build": "bun run build",
+    "test": "bun run test",
+    "server": "bun server.js"
   },
   "devDependencies": {
     "@types/bun": "latest"
