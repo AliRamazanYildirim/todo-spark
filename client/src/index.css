@@ -184,6 +184,19 @@ padding-bottom: 5px;
   background-color: transparent;
   border-color: rgb(141, 181, 145);
 }
+
+.copyright{
+  font-size: 13px;
+  text-align: center;
+  margin: 10px;
+}
+
+.user-email{
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
