@@ -1,6 +1,6 @@
 import "./App.css";
 import './index.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useCookies } from "react-cookie";
 //!COMPONENTS
 import ListHeader from "./components/ListHeader";
@@ -13,19 +13,19 @@ const App = () => {
   const userEmail = cookies.Email;
   const authToken = cookies.Token;
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos/${userEmail}`);
       const json = await response.json();
       setTasks(json);
     } catch (error) {
-      console.error();
+      console.error(error);
     }
-  };
+  }, [userEmail]);
 
   useEffect(() => {
     authToken ?  getData() : setTasks(null);
-  }, [authToken]);
+  }, [authToken, getData]);
   console.log(tasks);
 
   //!Sort by date
