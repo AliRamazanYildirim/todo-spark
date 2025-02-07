@@ -33,92 +33,105 @@ app.get("/todos/:userEmail", async (req, res) => {
 
 //Create a new todo
 
-app.post('/todos',  async (req, res) => {
-  const {user_email, title, progress, date} = req.body;
+app.post("/todos", async (req, res) => {
+  const { user_email, title, progress, date } = req.body;
   console.log(user_email, title, progress, date);
-  
+
   const id = nanoid();
   try {
-    const newTodo = await pool.query(`INSERT INTO todos(id, user_email, title, progress, date) VALUES(
-    $1, $2, $3, $4, $5)`, [id, user_email, title, progress, date])
+    const newTodo = await pool.query(
+      `INSERT INTO todos(id, user_email, title, progress, date) VALUES(
+    $1, $2, $3, $4, $5)`,
+      [id, user_email, title, progress, date]
+    );
     res.json(newTodo);
   } catch (error) {
     console.error(error);
   }
-})
+});
 
 //Edit a new todo
 
-app.put('/todos/:id',  async (req, res) => {
-  const {id} = req.params;
-  const {user_email, title, progress, date} = req.body;
-  
+app.put("/todos/:id", async (req, res) => {
+  const { id } = req.params;
+  const { user_email, title, progress, date } = req.body;
+
   try {
-    const editToDo = await pool.query('UPDATE todos SET user_email =$1, title= $2, progress = $3, date = $4 WHERE id = $5;', 
-      [user_email, title, progress, date, id]);
+    const editToDo = await pool.query(
+      "UPDATE todos SET user_email =$1, title= $2, progress = $3, date = $4 WHERE id = $5;",
+      [user_email, title, progress, date, id]
+    );
     res.json(editToDo);
   } catch (error) {
     console.error(error);
   }
-})
+});
 
 //Delete a todo
 
-app.delete('/todos/:id' , async (req, res) => {
-  const {id} = req.params;
+app.delete("/todos/:id", async (req, res) => {
+  const { id } = req.params;
 
   try {
-   const deleteToDo = await pool.query('DELETE FROM todos WHERE id = $1;', [id] );
-   res.json(deleteToDo);
- } catch (error) {
-  console.error(error);
-  
- }
-})
+    const deleteToDo = await pool.query("DELETE FROM todos WHERE id = $1;", [
+      id,
+    ]);
+    res.json(deleteToDo);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 //Signup
 
-app.post('/signup', async (req, res) => {
-  const {email, password} = req.body;
+app.post("/signup", async (req, res) => {
+  const { email, password } = req.body;
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   console.log(email, password);
   try {
-    const signUp = await pool.query(`INSERT INTO users(email, hashed_password) VALUES(
-    $1, $2)`, [email, hashedPassword])
-    const token = jwt.sign({email}, 'secret', {
-      expiresIn: '1d'
-    });
-    res.json({email, token});
+    const signUp = await pool.query(
+      `INSERT INTO users(email, hashed_password) VALUES($1, $2)`,
+      [email, hashedPassword]
+    );
+    const token = jwt.sign({ email }, "secret", { expiresIn: "1d" });
+    res.cookie("Email", email, { httpOnly: true });
+    res.cookie("Token", token, { httpOnly: true });
+    res.json({ email, token });
   } catch (error) {
     console.error(error);
-    if(error) {
-       res.json({detail: error.detail});
+    if (error) {
+      res.json({ detail: error.detail });
     }
   }
 });
 
 //Login
 
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [email]);
+    const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+      email,
+    ]);
     if (!user.rows.length) {
-      res.json({ detail: 'User not found' });
-      return; // Anstelle eines Fehlers zu werfen, ist es besser, return zu verwenden.
+      res.json({ detail: "User not found" });
+      return;
     }
 
-    const success = await bcrypt.compare(password, user.rows[0].hashed_password);
+    const success = await bcrypt.compare(
+      password,
+      user.rows[0].hashed_password
+    );
     if (success) {
-      const token = jwt.sign({ email }, 'secret', {
-        expiresIn: '1d'
-      });
+      const token = jwt.sign({ email }, "secret", { expiresIn: "1d" });
+      res.cookie("Email", email, { httpOnly: true });
+      res.cookie("Token", token, { httpOnly: true });
       res.json({ email: user.rows[0].email, token });
     } else {
-      res.json({ detail: 'Login failed' });
+      res.json({ detail: "Login failed" });
     }
   } catch (error) {
     console.error(error);

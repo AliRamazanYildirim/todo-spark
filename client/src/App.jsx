@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     authToken ?  getData() : setTasks(null);
-  }, []);
+  }, [authToken]);
   console.log(tasks);
 
   //!Sort by date
