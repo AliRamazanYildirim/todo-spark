@@ -13,14 +13,24 @@ const App = () => {
   const userEmail = cookies.Email;
   const authToken = cookies.Token;
 
-  const getData = useCallback(async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos/${userEmail}`);
-      const json = await response.json();
-      setTasks(json);
-    } catch (error) {
-      console.error(error);
-    }
+    const getData = useCallback(async () => {
+      try {
+          const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/todos/${userEmail}`);
+          
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+  
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Received non-JSON response');
+          }
+  
+          const json = await response.json();
+          setTasks(json);
+      } catch (error) {
+          console.error('Fetch error:', error);
+      }
   }, [userEmail]);
 
   useEffect(() => {
