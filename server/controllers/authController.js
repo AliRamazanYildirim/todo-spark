@@ -25,13 +25,17 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
+  // Giriş bilgilerini kontrol etme
+  if (!email || !password) {
+    return res.status(400).json({ detail: "Email and password are required" });
+  }
+
   try {
     const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
       email,
     ]);
     if (!user.rows.length) {
-      res.json({ detail: "User not found" });
-      return;
+      return res.status(404).json({ detail: "User not found" });
     }
 
     const success = await bcrypt.compare(
@@ -44,10 +48,10 @@ export const login = async (req, res) => {
       res.cookie("Token", token, { httpOnly: true });
       res.json({ email: user.rows[0].email, token });
     } else {
-      res.json({ detail: "Login failed" });
+      res.status(401).json({ detail: "Login failed" });
     }
   } catch (error) {
     console.error(error);
-    res.json({ detail: error.message });
+    res.status(500).json({ detail: error.message });
   }
 };

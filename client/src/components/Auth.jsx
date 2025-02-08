@@ -18,52 +18,55 @@ const Auth = () => {
     setError(null);
   };
 
-    const handleSubmit = async (e, endpoint) => {
-      e.preventDefault();
-      
-      if (!isLogin && password !== confirmPassword) {
-          setError("Passwords do not match");
-          return; // Beenden die Ausführung, wenn die Passwörter nicht übereinstimmen.
-      } else {
-          setError(null);
-      }
-  
-      try {
-          const response = await fetch(
-              `${import.meta.env.VITE_APP_SERVER_URL}/api/auth/${endpoint}`,
-              {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                      email,
-                      password,
-                  }),
-              }
-          );
-  
-          if (!response.ok) {
-              const errorData = await response.json(); 
-              throw new Error(errorData.message || "Failed to fetch data");
-          }
-  
-          const data = await response.json();
-          console.log(data);
-  
-          //! Speichern Cookies und laden nur neu, wenn erfolgreich
-          setCookie('Email', data.email);
-          setCookie('Token', data.token);
-          window.location.reload();
-      } catch (error) {
-          //! Stellen sicher, dass die Fehlerbehandlungslogik korrekt ist
-          if (error.response && error.response.data && error.response.data.detail) {
-              setError(error.response.data.detail);
-          } else {
-              setError(error.message);
-          }
-      }
-  };
+     const handleSubmit = async (e, endpoint) => {
+        e.preventDefault();
+        
+        if (!email || !password) {
+            setError("Email and password are required");
+            return;
+        }
+    
+        if (!isLogin && password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
+        }
+    
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_APP_SERVER_URL}/api/auth/${endpoint}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                    }),
+                }
+            );
+    
+            if (!response.ok) {
+                const errorData = await response.json(); 
+                throw new Error(errorData.message || "Failed to fetch data");
+            }
+    
+            const data = await response.json();
+            console.log(data);
+    
+            //! Speichern Cookies und laden nur neu, wenn erfolgreich
+            setCookie('Email', data.email);
+            setCookie('Token', data.token);
+            window.location.reload();
+        } catch (error) {
+            //! Stellen sicher, dass die Fehlerbehandlungslogik korrekt ist
+            if (error.response && error.response.data && error.response.data.detail) {
+                setError(error.response.data.detail);
+            } else {
+                setError(error.message);
+            }
+        }
+    };
 
   return (
     <div className="auth-container">
