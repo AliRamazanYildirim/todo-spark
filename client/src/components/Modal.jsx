@@ -15,17 +15,18 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
   const postData = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos`, {
+      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/todos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if(response.status ===200){
+      if(response.status === 200){
         console.log('Worked');
         setShowModal(false);
-        getData()
+        getData();
+      } else {
+        console.error('Failed to create todo');
       }
-      
     } catch (error) {
       console.error(error);
     }
@@ -34,7 +35,7 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
   const editData = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos/${task.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/todos/${task.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -43,6 +44,8 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
         console.log("Worked");
         setShowModal(false);
         getData();
+      } else {
+        console.error('Failed to update todo');
       }
     } catch (error) {
       console.error(error);
