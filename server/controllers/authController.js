@@ -2,8 +2,27 @@ import pool from "../config/db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// E-Mail-Bestätigungsregex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const signup = async (req, res) => {
   const { email, password } = req.body;
+
+  // Überprüfen der Anmeldeinformationen
+  if (!email || !password) {
+    return res.status(400).json({ detail: "Email and password are required" });
+  }
+
+  // E-Mail-Bestätigung
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ detail: "Invalid email format" });
+  }
+
+  // Überprüfung der Passwortlänge
+  if (password.length < 6) {
+    return res.status(400).json({ detail: "Password must be at least 6 characters long" });
+  }
+
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
@@ -25,9 +44,14 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  // Giriş bilgilerini kontrol etme
+  // Überprüfen der Anmeldeinformationen
   if (!email || !password) {
     return res.status(400).json({ detail: "Email and password are required" });
+  }
+
+  // E-Mail-Bestätigung
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ detail: "Invalid email format" });
   }
 
   try {
