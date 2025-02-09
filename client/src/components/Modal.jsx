@@ -28,6 +28,7 @@ const Modal = () => {
         console.log('Worked');
         setShowModal(false);
         getData();
+        window.location.reload(); // Seite aktualisieren
       } else {
         console.error('Failed to create todo');
       }
@@ -48,6 +49,7 @@ const Modal = () => {
         console.log("Worked");
         setShowModal(false);
         getData();
+        window.location.reload(); // Seite aktualisieren
       } else {
         console.error('Failed to update todo');
       }
@@ -67,7 +69,7 @@ const Modal = () => {
     <div className="overlay">
       <div className="modal">
         <div className="form-title-container">
-          <h2>Let&apos;s {mode} you task </h2>
+          <h2>Let&apos;s {mode} your task</h2>
           <button onClick={() => setShowModal(false)}>X</button>
         </div>
         <form>

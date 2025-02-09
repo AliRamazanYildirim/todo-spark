@@ -16,8 +16,6 @@ const useModalStore = create((set) => ({
   setTask: (task) => set({ task }),
   getData: () => {},
   setGetData: (getData) => set({ getData }),
-  listName: '',
-  setListName: (title) => set({ listName: title }),
 }));
 
 export default useModalStore;
