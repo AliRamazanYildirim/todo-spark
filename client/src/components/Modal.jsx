@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import useStore from "../store/useStore";
+import useModalStore from "../store/useStore";
 
 const Modal = () => {
-  const { mode, setShowModal, task, getData, data, setData } = useStore();
+  const { mode, setShowModal, task, getData, data, setData, showModal } = useModalStore();
   const editMode = mode === "edit" ? true : false;
   const [cookies, , ] = useCookies(null);
 
@@ -61,11 +61,13 @@ const Modal = () => {
     setData({ [name]: value });
   };
 
+  if (!showModal) return null;
+
   return (
     <div className="overlay">
       <div className="modal">
         <div className="form-title-container">
-          <h2>Let&#39;s {mode} you task </h2>
+          <h2>Let's {mode} you task </h2>
           <button onClick={() => setShowModal(false)}>X</button>
         </div>
         <form>

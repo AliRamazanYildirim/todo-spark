@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 
-const useStore = create((set) => ({
+const useModalStore = create((set) => ({
   data: {
     user_email: '',
     title: '',
@@ -18,4 +18,4 @@ const useStore = create((set) => ({
   setGetData: (getData) => set({ getData }),
 }));
 
-export default useStore;
+export default useModalStore;
