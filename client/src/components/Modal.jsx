@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import useModalStore from "../store/useStore";
+import useModalStore from "../store/useModalStore";
 
 const Modal = () => {
   const { mode, setShowModal, task, getData, data, setData, showModal } = useModalStore();
@@ -67,7 +67,7 @@ const Modal = () => {
     <div className="overlay">
       <div className="modal">
         <div className="form-title-container">
-          <h2>Let's {mode} you task </h2>
+          <h2>Let&apos;s {mode} you task </h2>
           <button onClick={() => setShowModal(false)}>X</button>
         </div>
         <form>

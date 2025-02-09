@@ -8,7 +8,7 @@ const ListItem = ({ task, getData }) => {
 
   const deleteItem = async () => {
     try {
-     const response =  await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/todos/${task.id}`, {
+     const response =  await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/todos/${task.id}`, {
       method: 'DELETE'
      });
       if(response.status === 200){
