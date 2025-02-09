@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import useStore from "../store/useStore";
 
-const Modal = ({ mode, setShowModal, task, getData }) => {
+const Modal = () => {
+  const { mode, setShowModal, task, getData, data, setData } = useStore();
   const editMode = mode === "edit" ? true : false;
   const [cookies, , ] = useCookies(null);
 
-  const [data, setData] = useState({
-    user_email: editMode ? task.user_email : cookies.Email,
-    title: editMode ? task.title : "",
-    progress: editMode ? task.progress : 50,
-    date: editMode ? task.date : new Date(),
-  });
+  useEffect(() => {
+    setData({
+      user_email: editMode ? task.user_email : cookies.Email,
+      title: editMode ? task.title : "",
+      progress: editMode ? task.progress : 50,
+      date: editMode ? task.date : new Date(),
+    });
+  }, [editMode, task, cookies.Email, setData]);
 
   const postData = async (e) => {
     e.preventDefault();
@@ -54,20 +58,14 @@ const Modal = ({ mode, setShowModal, task, getData }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setData((data) => ({
-      ...data,
-      [name]: value,
-    }));
-
-    console.log(data);
+    setData({ [name]: value });
   };
 
   return (
     <div className="overlay">
       <div className="modal">
         <div className="form-title-container">
-          <h2>Let's {mode} you task </h2>
+          <h2>Let&#39;s {mode} you task </h2>
           <button onClick={() => setShowModal(false)}>X</button>
         </div>
         <form>
