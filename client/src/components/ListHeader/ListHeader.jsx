@@ -1,9 +1,10 @@
 import useModalStore from "../../store/useModalStore";
 import Modal from "../Modal/Modal";
-
+import { useCookies } from "react-cookie"; // <-- Hier holen wir useCookies
 
 const ListHeader = () => {
   const { showModal, signOut, handleAdd } = useModalStore();
+  const [, , removeCookie] = useCookies(null); // <-- useCookies in der Komponente aufrufen
 
   return (
     <div className="list-header">
@@ -12,7 +13,7 @@ const ListHeader = () => {
         <button className="create" onClick={handleAdd}>
           Add
         </button>
-        <button className="sign-out" onClick={signOut}>
+        <button className="sign-out" onClick={() => signOut(removeCookie)}>
           Sign out
         </button>
       </div>

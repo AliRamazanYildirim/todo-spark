@@ -18,7 +18,7 @@ const useModalStore = create((set) => ({
   setTask: (task) => set({ task }),
   getData: () => {},
   setGetData: (getData) => set({ getData }),
-  signOut: (removeCookie) => signOut(removeCookie),
+  signOut, // <-- Kein Argument mehr nötig, weil removeCookie jetzt in signOut() geholt wird
   handleAdd: () => handleAdd(set),
   handleSubmit: (e) => handleSubmit(e, useModalStore),
 }));

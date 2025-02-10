@@ -1,11 +1,17 @@
 import { apiRequest } from "./api.modal";
 
 export const signOut = (removeCookie) => {
+  if (typeof removeCookie !== "function") {
+    console.error("removeCookie is not a function");
+    return;
+  }
+
   console.log("Signing out...");
   removeCookie("Email");
   removeCookie("Token");
   window.location.reload();
 };
+
 
 export const handleAdd = (set) => {
   set((state) => ({ ...state, mode: "create", showModal: true }));
