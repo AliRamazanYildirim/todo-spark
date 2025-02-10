@@ -1,9 +1,9 @@
-import { apiRequest } from '../utils/api';
+import { apiRequest } from "./api.modal";
 
 export const signOut = (removeCookie) => {
-  console.log('Signing out...');
-  removeCookie('Email');
-  removeCookie('Token');
+  console.log("Signing out...");
+  removeCookie("Email");
+  removeCookie("Token");
   window.location.reload();
 };
 
