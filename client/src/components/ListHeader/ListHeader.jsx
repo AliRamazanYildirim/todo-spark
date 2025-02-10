@@ -1,8 +1,9 @@
-import useModalStore from "../store/useModalStore";
-import Modal from "./Modal";
+import useModalStore from "../../store/useModalStore";
+import Modal from "../Modal/Modal";
+
 
 const ListHeader = () => {
-  const { showModal, signOut,handleAdd } = useModalStore();
+  const { showModal, signOut, handleAdd } = useModalStore();
 
   return (
     <div className="list-header">
