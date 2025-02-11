@@ -1,6 +1,6 @@
 {
   "name": "todo-spark",
-  "module": "index.js",
+  "module": "server.js",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
