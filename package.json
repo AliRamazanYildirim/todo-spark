@@ -11,6 +11,7 @@
     "client": "cd client && bun start"
   },
   "dependencies": {
+    "express-rate-limit": "^7.5.0",
     "if-env": "^1.0.4"
   }
 }
