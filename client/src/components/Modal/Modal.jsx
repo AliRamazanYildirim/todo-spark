@@ -1,5 +1,5 @@
 
-import useModalStore from "../../store/useModalStore";
+import useModalStore from "../../stores/useModalStore";
 import TodoForm from "./TodoForm";
 
 const Modal = () => {

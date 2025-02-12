@@ -1,5 +1,5 @@
 import useTodoForm from "../../hooks/useTodoForm";
-import useModalStore from "../../store/useModalStore";
+import useModalStore from "../../stores/useModalStore";
 
 const TodoForm = () => {
   const { data, handleChange, editMode } = useTodoForm();

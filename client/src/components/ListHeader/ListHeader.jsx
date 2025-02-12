@@ -1,4 +1,4 @@
-import useModalStore from "../../store/useModalStore";
+import useModalStore from "../../stores/useModalStore";
 import Modal from "../Modal/Modal";
 import { useCookies } from "react-cookie"; // <-- Hier holen wir useCookies
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import useModalStore from "../store/useModalStore";
+import useModalStore from "../stores/useModalStore";
 
 const useTodoForm = () => {
   const { mode, task, data, setData } = useModalStore();
